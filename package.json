@@ -1,0 +1,23 @@
+{
+  "name": "contest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keitax/contest.git"
+  },
+  "author": "keitax",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/keitax/contest/issues"
+  },
+  "homepage": "https://github.com/keitax/contest#readme",
+  "devDependencies": {
+    "tslint": "^5.14.0",
+    "typescript": "^3.3.4000"
+  }
+}

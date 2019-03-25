@@ -1,1 +1,3 @@
 classes/
+*.js
+/node_modules
