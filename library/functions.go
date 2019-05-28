@@ -20,3 +20,13 @@ func NextPerm(xs []int) bool {
 	sort.Ints(xs[l+1:])
 	return true
 }
+
+func Combination(n, r int64) int64 {
+	if r == 0 || n <= r {
+		return 1
+	}
+	if r == 1 {
+		return n
+	}
+	return Combination(n-1, r-1) + Combination(n-1, r)
+}
