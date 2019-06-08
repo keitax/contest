@@ -1,61 +1,57 @@
+// http://codeforces.com/contest/1166/problem/C
+
 package main
 
 import (
 	"bufio"
 	"fmt"
 	"os"
+	"sort"
 )
 
 func main() {
 	in := bufio.NewReader(os.Stdin)
 	out := bufio.NewWriter(os.Stdout)
 	defer out.Flush()
-
 	var n int
 	fmt.Fscanf(in, "%d\n", &n)
-	vs := make([]int, n)
+	a := make([]int, n)
 	for i := 0; i < n; i++ {
-		fmt.Fscanf(in, "%d", &vs[i])
+		fmt.Fscanf(in, "%d", &a[i])
 	}
-	fmt.Fscanln(in)
+	fmt.Fprintln(out, Solve(n, a))
+}
 
-	cnt := 0
-	for i := 0; i < n-1; i++ {
-		for j := i + 1; j < n; j++ {
-			if i == j {
-				continue
-			}
-			if isLegend(vs[i], vs[j]) {
-				cnt++
-			}
+func Solve(n int, a []int) int64 {
+	b := make([]int, n)
+	for i := int(0); i < n; i++ {
+		if a[i] < 0 {
+			b[i] = -a[i]
+		} else {
+			b[i] = a[i]
 		}
 	}
-	fmt.Fprintln(out, cnt)
-}
+	sort.Ints(b)
 
-func isLegend(x, y int) bool {
-	ax, ay := abs(x), abs(y)
-	axmy, axpy := abs(x-y), abs(x+y)
-	return min(axmy, axpy) <= min(ax, ay) && max(ax, ay) <= max(axmy, axpy)
-}
-
-func abs(x int) int {
-	if x < 0 {
-		return -x
+	cnt := int64(0)
+	for l := int(0); l < n; l++ {
+		r := BinSearch(b, l, b[l]*2)
+		cnt += int64(r - l)
 	}
-	return x
+
+	return cnt
 }
 
-func min(x, y int) int {
-	if x < y {
-		return x
+func BinSearch(a []int, l, n int) int {
+	l = l - 1
+	r := len(a)
+	for r-l > 1 {
+		m := l + (r-l)/2
+		if a[m] <= n {
+			l = m
+		} else {
+			r = m
+		}
 	}
-	return y
-}
-
-func max(x, y int) int {
-	if x < y {
-		return y
-	}
-	return x
+	return l
 }
